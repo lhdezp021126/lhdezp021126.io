@@ -1,0 +1,29 @@
+name: Despliegue de Bot de Telegram
+
+on:
+  push:
+    branches:
+      - main  # Cambia a la rama que desees
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código fuente
+      uses: actions/checkout@v2
+
+    - name: Configura Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x  # Asegúrate de usar la versión correcta
+
+    - name: Instala dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Ejecuta el bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}  # Configura esta variable en los Secretos de tu repositorio
+      run: python NOMBRE_DEL_ARCHIVO_DE_TU_BOT.py
